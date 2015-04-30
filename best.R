@@ -12,10 +12,12 @@ best <- function(state, outcome) {
         } else if (outcome =="pneumonia" ) {
                 NamedId=23
         } else stop("invalid outcome")
-                                                                                          
+                                                 
+        outcomedb[,NamedId]<-as.numeric(outcomedb[,NamedId]) 
         #Return hospital name in that state with lowest 30-day death rate
-        b<-(!is.na(as.numeric(outcomedb[,NamedId]))) & (outcomedb[7] == state)
+        b<-(!is.na(outcomedb[,NamedId])) & (outcomedb[7] == state)
         m<-cbind(outcomedb[,2][b],outcomedb[,NamedId][b])
-        m[order(m[,2],m[,1]),][1,1]
+        m<-m[order(as.numeric(m[,2])),]
+        m[1,1]
                 
 }
