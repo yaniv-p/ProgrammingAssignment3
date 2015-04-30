@@ -12,12 +12,12 @@ best <- function(state, outcome) {
         } else if (outcome =="pneumonia" ) {
                 NamedId=23
         } else stop("invalid outcome")
-                                                 
-        outcomedb[,NamedId]<-as.numeric(outcomedb[,NamedId]) 
-        #Return hospital name in that state with lowest 30-day death rate
-        b<-(!is.na(outcomedb[,NamedId])) & (outcomedb[7] == state)
-        m<-cbind(outcomedb[,2][b],outcomedb[,NamedId][b])
-        m<-m[order(as.numeric(m[,2])),]
-        m[1,1]
                 
+        #Return hospital name in that state with lowest 30-day death rate
+        
+        b<-(outcomedb[[NamedId]] != 'Not Available') & (outcomedb[[7]] == state) # flag vector for the choosen state and without NA
+        
+        m<-cbind(outcomedb[[2]][b],outcomedb[[NamedId]][b]) #build a Matrix based on the flag vector
+        m<-m[order(as.numeric(m[,2],m[,1])),] # order the matrix by the value and the Hospitol name
+        m[1,1] # return the first entry (lower value)
 }
