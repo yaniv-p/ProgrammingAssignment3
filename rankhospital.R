@@ -12,6 +12,8 @@ rankhospital <- function(state, outcome, num = 'best') {
         } else if (outcome =="pneumonia" ) {
                 NamedId=23
         } else stop("invalid outcome")
+
+        if (num !='best' && num !='worst' && !is.numeric(num)  ) stop("invalid num")
                 
 ## Return hospital name in that state with the given rank 30-day death rate
         
